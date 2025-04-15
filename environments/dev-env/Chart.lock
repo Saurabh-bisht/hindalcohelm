@@ -1,0 +1,30 @@
+dependencies:
+- name: hindalco-common
+  repository: file://../../hindalco-common
+  version: 0.1.0
+- name: discovery
+  repository: file://../../hindalco-ms/discovery
+  version: 0.1.0
+- name: apigateway
+  repository: file://../../hindalco-ms/apigateway
+  version: 0.1.0
+- name: user
+  repository: file://../../hindalco-ms/userservice
+  version: 0.1.0
+- name: iot
+  repository: file://../../hindalco-ms/iotservice
+  version: 0.1.0
+- name: helper
+  repository: file://../../hindalco-ms/helperservice
+  version: 0.1.0
+- name: plant
+  repository: file://../../hindalco-ms/plantmicroservice
+  version: 0.1.0
+- name: reader
+  repository: file://../../hindalco-ms/readerservice
+  version: 0.1.0
+- name: broker
+  repository: file://../../hindalco-ms/broker
+  version: 0.1.0
+digest: sha256:b8c9267c5687ce670c582e6ab5425e2e2c21b1ea7abcc3cde3524068481bb232
+generated: "2025-02-05T16:04:35.088966+05:30"

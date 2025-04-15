@@ -1,0 +1,33 @@
+deploymentName: reader
+serviceName: reader
+appLabel: reader
+appName: reader
+nameOverride: "reader"
+fullnameOverride: "reader"
+
+replicaCount: 1
+
+image:
+  repository: hcorptech/readerservice
+  tag: 0.0.1
+
+containerPort: 8041
+
+service:
+  type: ClusterIP
+  port: 8041
+  targetPort: 8041
+
+resources:
+  requests:
+    cpu: "200m"
+    memory: "512Mi"
+  limits:
+    cpu: "500m"
+    memory: "1Gi"
+
+appname_enabled: true
+profile_enabled: true
+discovery_enable: true
+mongo_host_enable: true
+jwt_enable: false

@@ -1,0 +1,91 @@
+{{- define "common.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: {{ .Values.deploymentName }}
+ labels:
+   app: {{ .Values.appLabel }}
+spec:
+ replicas: {{ .Values.replicaCount }}
+ selector:
+   matchLabels:
+     app: {{ .Values.appLabel }}
+ template:
+   metadata:
+     labels:
+       app: {{ .Values.appLabel }}
+   spec:
+     hostname: {{ .Values.appName }}
+     subdomain: {{ .Values.appName }}
+     containers:
+     - name: {{ .Values.appLabel }}
+       image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+       ports:
+       - containerPort: {{ .Values.containerPort }}
+         protocol: TCP
+       env:
+       - name: EUREKA_INSTANCE_HOSTNAME
+         value: {{ .Values.appName }}
+       - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+         value: "false"
+       {{- if .Values.appname_enabled }}
+       - name: SPRING_APPLICATION_NAME
+         value: {{ .Values.appName }}
+       {{- end }}
+       {{- if .Values.profile_enabled }}
+       - name: SPRING_PROFILES_ACTIVE
+         valueFrom: 
+           configMapKeyRef:
+             name: {{ .Values.global.configMapName }}
+             key: SPRING_PROFILES_ACTIVE
+       {{- end }}
+       {{- if .Values.discovery_enable }}
+       - name: EUREKA_DEFAULT_ZONE
+         valueFrom:
+           configMapKeyRef:
+             name: {{ .Values.global.configMapName }}
+             key: EUREKA_DEFAULT_ZONE
+       {{- end }}
+       {{- if .Values.mongo_host_enable }}
+       - name: MONGODB_HOST
+         valueFrom:
+           configMapKeyRef:
+             name: {{ .Values.global.configMapName }}
+             key: MONGODB_HOST
+       {{- end }}  
+       {{- if .Values.mongo_host_enable }}
+       - name: MONGODB_PORT
+         valueFrom:
+           configMapKeyRef:
+             name: {{ .Values.global.configMapName }}
+             key: MONGODB_PORT
+       {{- end }}  
+       {{- if .Values.mongo_host_enable }}
+       - name: MONGODB_DATABASE
+         valueFrom:
+           configMapKeyRef:
+             name: {{ .Values.global.configMapName }}
+             key: MONGODB_DATABASE
+       {{- end }}        
+       {{- if .Values.jwt_enable }}
+       - name: JWT_SECRET
+         valueFrom:
+           configMapKeyRef:
+             name: {{ .Values.global.configMapName }}
+             key: JWT_SECRET
+       {{- end }}          
+       {{- if .Values.jwt_enable }}
+       - name: JWT_EXPIRATION
+         valueFrom:
+           configMapKeyRef:
+             name: {{ .Values.global.configMapName }}
+             key: JWT_EXPIRATION
+       {{- end }}
+       resources:
+         requests:
+           cpu: {{ .Values.resources.requests.cpu }}
+           memory: {{ .Values.resources.requests.memory }}
+         limits:
+           cpu: {{ .Values.resources.limits.cpu }}
+           memory: {{ .Values.resources.limits.memory }}                                      
+{{- end -}}

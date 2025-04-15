@@ -1,0 +1,43 @@
+deploymentName: apigateway-deployment
+serviceName: apigateway
+appLabel: apigateway
+appName: apigateway
+replicaCount: 2
+
+image:
+  repository: hcorptech/apigateway
+  tag: 0.0.1
+
+containerPort: 9090
+
+service:
+  type: ClusterIP
+  port: 9090
+  targetPort: 9090
+
+resources:
+  requests:
+    cpu: "200m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+# Feature flags
+appname_enabled: true
+profile_enabled: true
+discovery_enable: true
+mongo_host_enable: true
+jwt_enable: true
+
+# Ingress Configuration
+ingress:
+  enabled: true
+  host: "localhost"
+  path: "/api"
+  pathType: "Prefix"
+  ingressType: "haproxy" # Changed from nginx to haproxy
+  annotations:
+    kubernetes.io/ingress.class: "haproxy"
+    ingress.kubernetes.io/ssl-redirect: "false"
+    ingress.kubernetes.io/rewrite-target: "/"

@@ -1,0 +1,29 @@
+global:
+  configMapName: hindalcodev-configmap
+  activeProfile: default
+  discovery: http://discovery:8761/eureka/
+  mongodb_host: 159.89.171.87
+  mongodb_port: 25755
+  mongodb_database: hindalco
+  secret_jwt: abcd123abcd123
+  exprire_jwt: 360000
+
+apigateway:
+  ingress:
+    enabled: true
+    host: "localhost"
+    path: "/"
+    pathType: "Prefix"
+    ingressType: "haproxy"
+    annotations:
+      kubernetes.io/ingress.class: "haproxy"
+
+discovery:
+  ingress:
+    enabled: true
+    host: "localhost"
+    path: "/eureka"
+    pathType: "Prefix"
+    ingressType: "haproxy"
+    annotations:
+      kubernetes.io/ingress.class: "haproxy"

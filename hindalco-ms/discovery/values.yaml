@@ -1,0 +1,47 @@
+deploymentName: discovery-deployment
+serviceName: discovery
+appLabel: discovery
+appName: discovery
+
+replicaCount: 1
+
+image:
+  repository: hcorptech/discoveryserver
+  tag: 0.0.1
+
+containerPort: 8761
+
+resources:
+  requests:
+    cpu: "200m"
+    memory: "512Mi"
+  limits:
+    cpu: "500m"
+    memory: "1Gi"
+
+service:
+  type: LoadBalancer
+  port: 8761
+  targetPort: 8761
+  nodePort: 30761
+
+appname_enabled: true
+profile_enabled: false
+config_enabled: false
+eureka_enabled: true
+resouceserver_enabled: false
+otel_enabled: false
+kafka_enabled: false
+
+ingress:
+  enabled: true
+  host: "localhost"
+  path: "/eureka"
+  pathType: "Prefix"
+  ingressType: "haproxy"
+  annotations:
+    kubernetes.io/ingress.class: "haproxy"
+    haproxy.org/ssl-redirect: "false"
+    haproxy.org/config-backend: |
+      balance roundrobin
+      option httpchk HEAD /eureka/actuator/health

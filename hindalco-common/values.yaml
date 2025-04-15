@@ -1,0 +1,4 @@
+# ingress:
+#   enabled: false # Default to false, enable per service
+#   host: "localhost"
+#   path: "/"

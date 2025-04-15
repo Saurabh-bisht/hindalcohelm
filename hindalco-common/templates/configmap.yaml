@@ -1,0 +1,15 @@
+{{- define "common.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.global.configMapName }}
+data:
+  SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile | quote }}
+  EUREKA_DEFAULT_ZONE: {{ .Values.global.discovery | quote }}
+  MONGODB_HOST: {{ .Values.global.mongodb_host | quote }}
+  MONGODB_PORT: {{ .Values.global.mongodb_port | quote }}  
+  MONGODB_DATABASE: {{ .Values.global.mongodb_database | quote }}
+  JWT_SECRET: {{ .Values.global.secret_jwt | quote }}
+  JWT_EXPIRATION: {{ .Values.global.exprire_jwt | quote }}
+
+{{- end -}}

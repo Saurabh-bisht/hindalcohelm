@@ -1,0 +1,33 @@
+deploymentName: plant
+serviceName: plant
+appLabel: plant
+appName: plant
+nameOverride: "plant"
+fullnameOverride: "plant"
+
+replicaCount: 1
+
+image:
+  repository: hcorptech/plantmicroservice
+  tag: 0.0.1
+
+containerPort: 8045
+
+service:
+  type: ClusterIP
+  port: 8045
+  targetPort: 8045
+
+resources:
+  requests:
+    cpu: "200m"
+    memory: "512Mi"
+  limits:
+    cpu: "500m"
+    memory: "1Gi"
+
+appname_enabled: true
+profile_enabled: true
+discovery_enable: true
+mongo_host_enable: true
+jwt_enable: false
